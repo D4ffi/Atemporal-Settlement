@@ -1,5 +1,8 @@
 package com.bydaffi.atemp;
 
+import com.bydaffi.atemp.block.AtempBlocks;
+import com.bydaffi.atemp.command.AtempCommands;
+import com.bydaffi.atemp.dimension.AtempDimensions;
 import com.bydaffi.atemp.item.AtempItems;
 import net.fabricmc.api.ModInitializer;
 
@@ -16,6 +19,9 @@ public class AtemporalSettlement implements ModInitializer {
 	public void onInitialize() {
 
 		AtempItems.registerItems();
+		AtempCommands.register();
+		AtempBlocks.registerBlocks();
+		AtempDimensions.registerDimensions();
 
 		LOGGER.info("Hello Fabric world!");
 	}

@@ -1,7 +1,7 @@
 package com.bydaffi.atemp.item;
 
 import com.bydaffi.atemp.AtemporalSettlement;
-import com.bydaffi.atemp.CampStructure;
+import com.bydaffi.atemp.util.PortalSpawner;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
@@ -22,11 +22,9 @@ public class CampingMace extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
-        Boolean canCreateCamp = canCreateCamp(context);
-        AtemporalSettlement.LOGGER.info("Validando if: canCreateCamp={}, hasValidCampArea={}", canCreateCamp(context), hasValidCampArea(context));
         if (canCreateCamp(context)) {
-            CampStructure.spawnCamp(context.getWorld(), context.getBlockPos());
-            return ActionResult.success(true);
+            boolean success = PortalSpawner.spawnPortalStructure(context);
+            return success ? ActionResult.success(true) : ActionResult.FAIL;
         }
 
         return ActionResult.PASS;

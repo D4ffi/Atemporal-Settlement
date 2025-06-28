@@ -1,0 +1,15 @@
+{
+  "type": "atemp:camp_dimension_type",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "layers": [],
+      "biome": "atemp:camp_biome",
+      "lakes": false,
+      "features": false,
+      "structures": {
+        "structures": {}
+      }
+    }
+  }
+}

@@ -20,6 +20,9 @@
 		],
 		"fabric-datagen": [
 			"com.bydaffi.atemp.AtemporalSettlementDataGenerator"
+		],
+		"client": [
+			"com.bydaffi.atemp.AtemporalSettlementClient"
 		]
 	},
 	"mixins": [
