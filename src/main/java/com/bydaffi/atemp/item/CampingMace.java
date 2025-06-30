@@ -4,9 +4,13 @@ import com.bydaffi.atemp.AtemporalSettlement;
 import com.bydaffi.atemp.util.PortalSpawner;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.UUID;
 
 public class CampingMace extends Item {
 
@@ -23,7 +27,9 @@ public class CampingMace extends Item {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         if (canCreateCamp(context)) {
-            boolean success = PortalSpawner.spawnPortalStructure(context);
+            UUID playerUuid = context.getPlayer().getUuid();
+            setBindUuid(context.getStack(), playerUuid);
+            boolean success = PortalSpawner.spawnPortalStructure(context, playerUuid);
             return success ? ActionResult.success(true) : ActionResult.FAIL;
         }
 
@@ -74,7 +80,30 @@ public class CampingMace extends Item {
         return true;
     }
 
+    public static void setBindUuid(ItemStack stack, UUID uuid) {
+        NbtCompound nbt = stack.getOrCreateNbt();
+        nbt.putString("owner", uuid.toString());
+    }
 
+    public static UUID getBindUuid(ItemStack stack) {
+        NbtCompound nbt = stack.getNbt();
+        if (nbt != null && nbt.contains("owner")) {
+            try {
+                return UUID.fromString(nbt.getString("owner"));
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
+        }
+        return null;
+    }
 
+    public static boolean hasBindUuid(ItemStack stack) {
+        return getBindUuid(stack) != null;
+    }
 
+    public static void setOwnerOnCraft(ItemStack stack, UUID playerUuid) {
+        if (!hasBindUuid(stack)) {
+            setBindUuid(stack, playerUuid);
+        }
+    }
 }

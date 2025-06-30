@@ -5,6 +5,8 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.MushroomBlock;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -19,6 +21,10 @@ public class AtempBlocks {
                     .strength(2.0f)
                     .luminance(15)
                     .nonOpaque()));
+
+    public static final Block ORNAMENTED_MUSHROOM = registerBlock("ornamented_mushroom",
+            new MushroomBlock(FabricBlockSettings.copyOf(Blocks.MUSHROOM_STEM)));
+
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
